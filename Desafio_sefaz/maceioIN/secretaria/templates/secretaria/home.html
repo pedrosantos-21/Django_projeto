@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Secretaria de Fazenda de Maceió</h1>
+<p>Bem-vindo ao site da Secretaria de Fazenda de Maceió. Aqui você pode gerenciar o cadastro de pessoas da secretaria.
+</p>
+
+<h2 class="mt-5">Lista de Pessoas</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Setor</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pessoa in pessoas %}
+        <tr>
+            <td>{{ pessoa.nome }}</td>
+            <td>{{ pessoa.setor }}</td>
+            <td>{{ pessoa.email }}</td>
+            <td>
+                <a href="#" class="btn btn-primary btn-sm">Editar</a>
+                <form action="{% url 'delete_pessoa' pessoa.pk %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

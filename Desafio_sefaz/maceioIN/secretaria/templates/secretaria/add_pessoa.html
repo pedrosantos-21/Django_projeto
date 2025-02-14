@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Adicionar Pessoa{% endblock %}
+
+{% block content %}
+<h1>Adicionar Pessoa</h1>
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" value="{{ form.nome.value|default_if_none:'' }}">
+    </div>
+    <div class="form-group">
+        <label for="setor">Setor</label>
+        <select class="form-control" id="setor" name="setor">
+            {% for choice in form.setor.field.choices %}
+                <option value="{{ choice.0 }}" {% if choice.0 == form.setor.value %}selected{% endif %}>{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value|default_if_none:'' }}">
+    </div>
+    <button type="submit" class="btn btn-success">Adicionar</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+</form>
+{% endblock %}
